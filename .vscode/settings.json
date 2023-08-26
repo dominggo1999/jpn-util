@@ -47,5 +47,9 @@
       "GOOS": "js",
       "GOARCH": "wasm"
     }
-  }
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.python"
+  },
+  "python.formatting.provider": "none"
 }

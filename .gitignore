@@ -29,3 +29,7 @@ build/
 
 
 dist
+
+
+venv*/
+ENV*/
