@@ -8,6 +8,8 @@ import { nodeResolve } from "@rollup/plugin-node-resolve";
 
 import { builtinModules } from "module";
 
+console.log(builtinModules);
+
 // https://vitejs.dev/guide/build.html#library-mode
 export default defineConfig({
   resolve: {
