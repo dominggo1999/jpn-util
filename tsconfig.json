@@ -27,11 +27,17 @@
     "paths": {
       "~/*": [
         "src/*"
+      ],
+      "kagome/*": [
+        "kagome/*"
       ]
     }
   },
   "include": [
     "src/**/*",
+    "tests/**/*",
+    "helpers/**/*",
+    "epub-extractor/**/*",
     "tests/**/*",
     "vitest.config.ts",
     "vite.config.ts"

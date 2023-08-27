@@ -13,7 +13,10 @@ console.log(builtinModules);
 // https://vitejs.dev/guide/build.html#library-mode
 export default defineConfig({
   resolve: {
-    alias: [{ find: "~", replacement: resolve(__dirname, "./src") }],
+    alias: [
+      { find: "~", replacement: resolve(__dirname, "./src") },
+      { find: "kagome", replacement: resolve(__dirname, "./kagome") },
+    ],
   },
   build: {
     lib: {

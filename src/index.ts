@@ -1,5 +1,5 @@
 import express from "express";
-import { kagomeTokenizer } from "../kagome";
+import { kagomeTokenizer } from "kagome";
 
 const app = express();
 app.use(express.json());
