@@ -10,7 +10,7 @@ import { dirname } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const dir = () => dirname(__filename);
 
-const pathToFile = r(dir(), "./books/q.epub");
+const pathToFile = r(dir(), "./books/test-2.epub");
 const imageWebRoot = r(dir(), "./books/images");
 const chapterWebRoot = r(dir(), "./books/chapters");
 

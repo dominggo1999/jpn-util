@@ -38,7 +38,7 @@ const text = `
 `;
 
 export type Furigana = {
-  text: string;
+  kana: string;
   start: number;
   end: number;
 }[];
@@ -80,7 +80,7 @@ export const parseJp2Html = (html: string) => {
             index += span.length;
 
             furigana.push({
-              text: rt,
+              kana: rt,
               start: prevIndex,
               end: index - 1,
             });
