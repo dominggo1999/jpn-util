@@ -6,6 +6,8 @@ import { parseJp2Html } from "./html2text";
 import { resolve as r } from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import { db, books, chapters } from "db/drizzle";
+import { randomUUID } from "crypto";
 
 const __filename = fileURLToPath(import.meta.url);
 const dir = () => dirname(__filename);
@@ -17,17 +19,34 @@ const chapterWebRoot = r(dir(), "./books/chapters");
 // Promisify the epub.getChapter function
 const getChapterAsync = util.promisify(EPub.prototype.getChapter);
 
+const startTime = new Date();
+
 EPub.createAsync(pathToFile, imageWebRoot, chapterWebRoot)
   .then(async (results) => {
     const epub = results as EPub;
+    const bookId = epub.metadata.title || randomUUID();
+
+    db.insert(books)
+      .values({
+        bookId,
+        title: epub.metadata.title,
+      })
+      .run();
 
     // const document = "";
 
     for (const chapter of epub.flow) {
       try {
         const text = await getChapterAsync.call(epub, chapter.id);
-
-        console.log(parseJp2Html(text));
+        parseJp2Html(text, chapter.id);
+        // console.log(parseJp2Html(text, chapter.id));
+        db.insert(chapters)
+          .values({
+            chapterId: chapter.id,
+            bookId,
+            title: chapter.title,
+          })
+          .run();
         // document += text;
       } catch (error) {
         console.log(error);
@@ -44,6 +63,13 @@ EPub.createAsync(pathToFile, imageWebRoot, chapterWebRoot)
 
     //   console.log("file created");
     // });
+
+    // Capture the end time
+    const endTime = new Date();
+
+    // Calculate the elapsed time in milliseconds
+
+    console.log(startTime, endTime);
   })
   .catch((err) => {
     console.log("ERROR\n-----");

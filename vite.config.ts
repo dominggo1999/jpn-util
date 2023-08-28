@@ -16,6 +16,7 @@ export default defineConfig({
     alias: [
       { find: "~", replacement: resolve(__dirname, "./src") },
       { find: "kagome", replacement: resolve(__dirname, "./kagome") },
+      { find: "db", replacement: resolve(__dirname, "./db") },
     ],
   },
   build: {

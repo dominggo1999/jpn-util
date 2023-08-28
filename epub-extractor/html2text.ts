@@ -1,4 +1,7 @@
 import { load } from "cheerio";
+import { generate as uuid } from "short-uuid";
+import { db, paragraphs, furigana as furiganaModel } from "db/drizzle";
+import { randomUUID } from "crypto";
 
 const text = `
 <p>
@@ -48,7 +51,7 @@ export type Paragraph = {
   furigana: Furigana;
 };
 
-export const parseJp2Html = (html: string) => {
+export const parseJp2Html = (html: string, chapterId: string) => {
   const $ = load(html);
 
   // Get all the paragraphs
@@ -60,6 +63,7 @@ export const parseJp2Html = (html: string) => {
     // For keeping track furigana index
     let index = 0;
     const furigana: Furigana = [];
+    const paragraphId = randomUUID();
 
     // Get the children of the p tag and iterate on them
     const text = $(el)
@@ -85,6 +89,16 @@ export const parseJp2Html = (html: string) => {
               end: index - 1,
             });
 
+            db.insert(furiganaModel)
+              .values({
+                paragraphId,
+                furiganaId: uuid(),
+                start: prevIndex,
+                end: index - 1,
+                kana: rt,
+              })
+              .run();
+
             return span;
           }
 
@@ -102,6 +116,16 @@ export const parseJp2Html = (html: string) => {
       .toArray()
       .join("");
 
+    db.insert(paragraphs)
+      .values({
+        paragraphId,
+        chapterId,
+        text,
+      })
+      .run();
+
+    console.log(chapterId, new Date().getTime());
+
     results.push({ text, furigana });
   });
 
@@ -109,4 +133,4 @@ export const parseJp2Html = (html: string) => {
 };
 
 // console.log(parseJp2Html(text));
-parseJp2Html(text);
+// parseJp2Html(text);
