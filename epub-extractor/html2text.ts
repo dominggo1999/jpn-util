@@ -115,13 +115,16 @@ export const html2text = (html: string, chapterId: string) => {
       .toArray()
       .join("");
 
-    db.insert(paragraphs)
-      .values({
-        paragraphId,
-        chapterId,
-        text,
-      })
-      .run();
+    // Only insert if there is text
+    if (text) {
+      db.insert(paragraphs)
+        .values({
+          paragraphId,
+          chapterId,
+          text,
+        })
+        .run();
+    }
 
     console.log(chapterId, new Date().getTime());
 
