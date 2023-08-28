@@ -1,6 +1,7 @@
 import { load } from "cheerio";
 import { generate as uuid } from "short-uuid";
 import { db, paragraphs, furigana as furiganaModel } from "db/drizzle";
+import { readable } from "helpers";
 
 const text = `
 <p>
@@ -126,7 +127,7 @@ export const html2text = (html: string, chapterId: string) => {
         .run();
     }
 
-    console.log(chapterId, new Date().getTime());
+    console.log(chapterId, readable(new Date()));
 
     results.push({ text, furigana });
   });

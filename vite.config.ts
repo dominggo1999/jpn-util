@@ -17,6 +17,7 @@ export default defineConfig({
       { find: "~", replacement: resolve(__dirname, "./src") },
       { find: "kagome", replacement: resolve(__dirname, "./kagome") },
       { find: "db", replacement: resolve(__dirname, "./db") },
+      { find: "helpers", replacement: resolve(__dirname, "./db") },
     ],
   },
   build: {

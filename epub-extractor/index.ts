@@ -8,6 +8,7 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import { db, books, chapters } from "db/drizzle";
 import { generate as uuid } from "short-uuid";
+import { readable } from "helpers";
 
 const __filename = fileURLToPath(import.meta.url);
 const dir = () => dirname(__filename);
@@ -19,7 +20,7 @@ const chapterWebRoot = r(dir(), "./books/chapters");
 // Promisify the epub.getChapter function
 const getChapterAsync = util.promisify(EPub.prototype.getChapter);
 
-const startTime = new Date();
+const startTime = readable(new Date());
 
 EPub.createAsync(pathToFile, imageWebRoot, chapterWebRoot)
   .then(async (results) => {
@@ -65,7 +66,7 @@ EPub.createAsync(pathToFile, imageWebRoot, chapterWebRoot)
     // });
 
     // Capture the end time
-    const endTime = new Date();
+    const endTime = readable(new Date());
 
     // Calculate the elapsed time in milliseconds
 
