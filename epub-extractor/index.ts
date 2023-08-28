@@ -1,7 +1,7 @@
 import EPub from "epub2";
 // import fs from "fs";
 import util from "util";
-import { parseJp2Html } from "./html2text";
+import { html2text } from "./html2text";
 
 import { resolve as r } from "path";
 import { fileURLToPath } from "url";
@@ -38,7 +38,7 @@ EPub.createAsync(pathToFile, imageWebRoot, chapterWebRoot)
     for (const chapter of epub.flow) {
       try {
         const text = await getChapterAsync.call(epub, chapter.id);
-        parseJp2Html(text, chapter.id);
+        html2text(text, chapter.id);
         // console.log(parseJp2Html(text, chapter.id));
         db.insert(chapters)
           .values({

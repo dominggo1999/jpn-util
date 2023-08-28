@@ -50,7 +50,7 @@ export type Paragraph = {
   furigana: Furigana;
 };
 
-export const parseJp2Html = (html: string, chapterId: string) => {
+export const html2text = (html: string, chapterId: string) => {
   const $ = load(html);
 
   // Get all the paragraphs
