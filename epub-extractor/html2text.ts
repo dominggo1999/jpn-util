@@ -1,7 +1,6 @@
 import { load } from "cheerio";
 import { generate as uuid } from "short-uuid";
 import { db, paragraphs, furigana as furiganaModel } from "db/drizzle";
-import { randomUUID } from "crypto";
 
 const text = `
 <p>
@@ -63,7 +62,7 @@ export const parseJp2Html = (html: string, chapterId: string) => {
     // For keeping track furigana index
     let index = 0;
     const furigana: Furigana = [];
-    const paragraphId = randomUUID();
+    const paragraphId = uuid();
 
     // Get the children of the p tag and iterate on them
     const text = $(el)

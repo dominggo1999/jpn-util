@@ -7,12 +7,12 @@ import { resolve as r } from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import { db, books, chapters } from "db/drizzle";
-import { randomUUID } from "crypto";
+import { generate as uuid } from "short-uuid";
 
 const __filename = fileURLToPath(import.meta.url);
 const dir = () => dirname(__filename);
 
-const pathToFile = r(dir(), "./books/test-2.epub");
+const pathToFile = r(dir(), "./books/q.epub");
 const imageWebRoot = r(dir(), "./books/images");
 const chapterWebRoot = r(dir(), "./books/chapters");
 
@@ -24,7 +24,7 @@ const startTime = new Date();
 EPub.createAsync(pathToFile, imageWebRoot, chapterWebRoot)
   .then(async (results) => {
     const epub = results as EPub;
-    const bookId = epub.metadata.title || randomUUID();
+    const bookId = epub.metadata.title || uuid();
 
     db.insert(books)
       .values({
