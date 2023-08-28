@@ -36,7 +36,7 @@ EPub.createAsync(pathToFile, imageWebRoot, chapterWebRoot)
 
     // const document = "";
 
-    for (const chapter of epub.flow) {
+    for (const [chapterOrder, chapter] of epub.flow.entries()) {
       try {
         const text = await getChapterAsync.call(epub, chapter.id);
         html2text(text, chapter.id);
@@ -46,6 +46,7 @@ EPub.createAsync(pathToFile, imageWebRoot, chapterWebRoot)
             chapterId: chapter.id,
             bookId,
             title: chapter.title,
+            position: chapterOrder,
           })
           .run();
         // document += text;

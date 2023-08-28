@@ -59,7 +59,7 @@ export const html2text = (html: string, chapterId: string) => {
 
   const results = [];
 
-  p.each((_, el) => {
+  p.each((pOrder, el) => {
     // For keeping track furigana index
     let index = 0;
     const furigana: Furigana = [];
@@ -123,6 +123,7 @@ export const html2text = (html: string, chapterId: string) => {
           paragraphId,
           chapterId,
           text,
+          position: pOrder,
         })
         .run();
     }

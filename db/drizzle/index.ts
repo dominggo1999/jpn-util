@@ -17,6 +17,7 @@ sqlite.run(
     "chapterId text",
     "title text",
     "bookId text",
+    "position text",
   ].join(",")})`,
 );
 sqlite.run(
@@ -24,6 +25,7 @@ sqlite.run(
     "chapterId text",
     "paragraphId text",
     "text text",
+    "position text",
   ].join(",")})`,
 );
 sqlite.run(

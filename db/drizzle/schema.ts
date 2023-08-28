@@ -17,6 +17,7 @@ export const chapters = schemas.sqliteTable("chapters", {
     .text("bookId")
     .references(() => books.bookId)
     .notNull(),
+  position: schemas.integer("position").notNull(),
 });
 
 export const chaptersRelations = relations(chapters, ({ many }) => ({
@@ -30,6 +31,7 @@ export const paragraphs = schemas.sqliteTable("paragraphs", {
     .text("chapterId")
     .references(() => chapters.chapterId)
     .notNull(),
+  position: schemas.integer("position").notNull(),
 });
 
 export const paragraphsRelations = relations(paragraphs, ({ many }) => ({
