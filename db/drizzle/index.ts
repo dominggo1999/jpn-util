@@ -49,23 +49,27 @@ export const furigana = schemas.sqliteTable("furigana", {
 });
 
 // Create all tables with the correct columns
-sqlite.run(`create table books (${["bookId text", "title text"].join(",")})`);
 sqlite.run(
-  `create table chapters (${[
+  `create table if not exists books (${["bookId text", "title text"].join(
+    ",",
+  )})`,
+);
+sqlite.run(
+  `create table if not exists chapters (${[
     "chapterId text",
     "title text",
     "bookId text",
   ].join(",")})`,
 );
 sqlite.run(
-  `create table paragraphs (${[
+  `create table if not exists paragraphs (${[
     "chapterId text",
     "paragraphId text",
     "text text",
   ].join(",")})`,
 );
 sqlite.run(
-  `create table furigana (${[
+  `create table if not exists furigana (${[
     "furiganaId text",
     "start integer",
     "end integer",
@@ -73,56 +77,3 @@ sqlite.run(
     "kana text",
   ].join(",")})`,
 );
-
-// Create a table with the correct columns
-// db.createTable("books", books.columns);
-// db.createTable("chapters", chapters.columns);
-// db.createTable("paragraphs", paragraphs.columns);
-// db.createTable("furigana", furigana.columns);
-
-// Insert some data
-// db.insert("books")
-//   .values({
-//     bookId: "book1",
-//     title: "book1",
-//   }")
-
-// db.insert(books)
-//   .values({
-//     bookId: "book1",
-//     title: "book1",
-//   })
-//   .run();
-
-// db.insert(chapters)
-//   .values({
-//     chapterId: "chapter1",
-//     title: "book1",
-//     bookId: "book1",
-//   })
-//   .run();
-
-// db.insert(paragraphs)
-//   .values({
-//     paragraphId: "paragraph1",
-//     chapterId: "chapter1",
-//   })
-//   .run();
-
-// db.insert(furigana)
-//   .values({
-//     start: 0,
-//     end: 2,
-//     paragraphId: "paragraph1",
-//     furiganaId: "furigana1",
-//   })
-//   .run();
-
-// get all furigana in paragraph1
-// const main = async () => {
-//   const book = await db.select().from(books).where(eq(books.bookId, "book1"));
-
-//   console.log(book);
-// };
-
-// main();
